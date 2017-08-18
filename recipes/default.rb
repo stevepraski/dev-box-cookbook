@@ -16,4 +16,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# Warning: XFCE and XOrg are huge
 include_recipe 'dev-box-cookbook::xfce'
+
+# Sublime, because Atom fails with "display 3D acceleration"
+# Please support Sublime's author
+apt_repository 'sublime-text' do
+  uri 'https://download.sublimetext.com/'
+  distribution 'apt/stable/'
+  key 'https://download.sublimetext.com/sublimehq-pub.gpg'
+end
+
+%w[rsync git htop vnstat tmux sshfs mplayer unzip sublime-text xosview].each do |pkg|
+  package pkg
+end

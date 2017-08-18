@@ -1,6 +1,7 @@
 ---
 driver:
   name: vagrant
+  gui: true
   customize:
     memory: 2000
   network:

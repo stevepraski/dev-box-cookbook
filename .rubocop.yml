@@ -1,3 +1,6 @@
 AllCops:
   Exclude:
     - 'Vagrantfile.rb'
+Metrics/LineLength:
+  Exclude:
+    - 'recipes/default.rb'

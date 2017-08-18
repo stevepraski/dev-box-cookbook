@@ -12,4 +12,3 @@ version '0.1.1'
 
 depends 'build-essential'
 depends 'base-box-cookbook', '~>0.1.7'
-depends 'apt', '~> 6.1.3'
