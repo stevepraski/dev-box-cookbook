@@ -1,0 +1,65 @@
+{
+  "variables": {
+    "home_dir": "{{env `HOME`}}",
+    "cpu_cores": "2",
+    "output_name": "xubuntu",
+    "recipe": "dev-box-cookbook::default",
+    "source_ovf": "bento-VAGRANTSLASH-ubuntu-16.04/2.3.8/"
+  },
+  "builders": [
+    {
+      "type": "virtualbox-ovf",
+      "source_path": "{{user `home_dir`}}/.vagrant.d/boxes/{{user `source_ovf`}}/virtualbox/box.ovf",
+      "ssh_username": "vagrant",
+      "ssh_password": "vagrant",
+      "headless": true,
+      "ssh_wait_timeout": "30s",
+      "shutdown_command": "echo 'Packing: Shutdown!' | sudo /sbin/shutdown -P now",
+      "vboxmanage": [
+        ["modifyvm", "{{.Name}}", "--cpus", "{{user `cpu_cores`}}"]
+      ]
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "chef-solo",
+      "cookbook_paths": ["berks-cookbooks"],
+      "run_list": ["{{user `recipe`}}"]
+    },
+    {
+      "type": "shell",
+      "inline": [
+        "wget https://raw.githubusercontent.com/chef/bento/master/scripts/common/vagrant.sh -O - | bash -s"
+      ]
+    },
+    {
+     "type": "shell",
+      "inline": [
+        "sudo /sbin/reboot",
+        "sleep 30"
+      ]
+    },
+    {
+     "type": "shell",
+      "execute_command": "echo 'packer' | {{ .Vars }} sudo -E -S sh '{{ .Path }}'",
+      "pause_before": "60s",
+      "inline": [
+        "cd /opt/VBoxGuestAdditions*/init",
+        "./vboxadd setup"
+      ]
+    },
+    {
+      "type": "shell",
+      "execute_command": "echo 'packer' | {{ .Vars }} sudo -E -S sh '{{ .Path }}'",
+      "script": "cleanup.sh"
+    }
+  ],
+ "post-processors": [
+    {
+      "output": "{{user `output_name`}}-{{isotime \"2006-01-02-1504\"}}.box",
+      "type": "vagrant",
+      "compression_level": 1,
+      "keep_input_artifact": true
+    }
+  ]
+}

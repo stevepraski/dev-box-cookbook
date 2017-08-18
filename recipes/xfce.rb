@@ -1,6 +1,6 @@
 #
-# Cookbook Name:: dev-box-cookbook
-# Recipe:: default
+# Cookbook:: dev-box-cookbook
+# Recipe:: xfce
 #
 # Copyright (c) 2017 Steven Praski
 #
@@ -16,4 +16,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-include_recipe 'dev-box-cookbook::xfce'
+include_recipe 'base-box-cookbook::update'
+
+package 'xubuntu-desktop'
+
+include_recipe 'build-essential::default'

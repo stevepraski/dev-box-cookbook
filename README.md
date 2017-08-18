@@ -1,4 +1,6 @@
 # dev-box-cookbook
 
-TODO: Enter the cookbook description here.
+---
+## Simple Throwaway Development VM
 
+### Work in Progress

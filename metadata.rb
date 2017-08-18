@@ -1,20 +1,15 @@
 name 'dev-box-cookbook'
-maintainer 'The Authors'
-maintainer_email 'you@example.com'
-license 'All Rights Reserved'
+maintainer 'Steven Praski'
+maintainer_email 'stevepraski@users.noreply.github.com'
+license 'Apache-2.0'
 description 'Installs/Configures dev-box-cookbook'
 long_description 'Installs/Configures dev-box-cookbook'
-version '0.1.0'
-chef_version '>= 12.1' if respond_to?(:chef_version)
+source_url 'https://github.com/stevepraski/dev-box-cookbook'
+issues_url 'https://github.com/stevepraski/dev-box-cookbook/issues'
+chef_version '>= 13.2.20' if respond_to?(:chef_version)
+supports 'ubuntu', '= 16.04'
+version '0.1.1'
 
-# The `issues_url` points to the location where issues for this cookbook are
-# tracked.  A `View Issues` link will be displayed on this cookbook's page when
-# uploaded to a Supermarket.
-#
-# issues_url 'https://github.com/<insert_org_here>/dev-box-cookbook/issues'
-
-# The `source_url` points to the development repository for this cookbook.  A
-# `View Source` link will be displayed on this cookbook's page when uploaded to
-# a Supermarket.
-#
-# source_url 'https://github.com/<insert_org_here>/dev-box-cookbook'
+depends 'build-essential'
+depends 'base-box-cookbook', '~>0.1.7'
+depends 'apt', '~> 6.1.3'
